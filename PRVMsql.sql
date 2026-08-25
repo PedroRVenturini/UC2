@@ -51,4 +51,38 @@ FIELDS TERMINATED BY ','
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
 (id_venda, id_produto, id_loja, quantidade, valor, data_venda);
-SELECT * FROM vendas LIMIT 10;
+
+SELECT * FROM vendas
+WHERE VALOR > 100;
+
+SELECT id_produto, valor FROM vendas
+ORDER BY valor DESC
+LIMIT 5;
+
+SELECT id_produto, valor, data_venda FROM vendas
+WHERE data_venda >= '2024-03-01'
+AND data_venda <= '2024-03-31';
+
+SELECT id_produto, valor FROM vendas
+WHERE id_produto IN (5, 12, 47);
+
+SELECT id_produto, SUM(valor) AS total_vendas
+FROM vendas
+GROUP BY id_produto
+ORDER BY total_vendas DESC;
+
+SELECT id_loja, COUNT(id_venda) AS quantidade
+FROM vendas
+GROUP BY id_loja;
+
+SELECT id_produto, SUM(valor) AS total
+FROM vendas
+GROUP BY id_produto
+HAVING SUM(valor) > 500;
+
+SELECT id_produto, SUM(valor) AS total_vendas
+FROM vendas
+WHERE data_venda >= "2024-06-01"
+GROUP BY id_produto
+HAVING total_vendas >= 10000
+ORDER BY total_vendas DESC;
